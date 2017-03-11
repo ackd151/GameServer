@@ -11,26 +11,17 @@ import java.awt.event.MouseListener;
  */
 public class GameBoard extends JFrame implements MouseListener{
     //instance variables
-    Color primary;
-    Color alternate;
-    int width;
-    int height;
-    int numRows;
-    int numColumns;
-    String gameTitle;
+    private Color primary;
+    private Color alternate;
+    private int width;
+    private int height;
+    private int numRows;
+    private int numColumns;
+    private String gameTitle;
     Tile[][] boardMatrix;
 
-    /**
-     *
-     * @param boardWidth
-     * @param boardHeight
-     * @param rows
-     * @param cols
-     * @param primary
-     * @param alternate
-     * @param gameTitle
-     */
-    public GameBoard(int boardWidth, int boardHeight, int rows, int cols, Color primary,
+
+    GameBoard(int boardWidth, int boardHeight, int rows, int cols, Color primary,
                      Color alternate, String gameTitle) {
 
         //init board specs
@@ -57,7 +48,7 @@ public class GameBoard extends JFrame implements MouseListener{
         gameBoard.setSize(width + 20, height + 20); //+20 for border width (10 + 10)
         Border boardBorder = BorderFactory.createMatteBorder(10,10,10,10, Color.BLACK);
         gameBoard.setBorder(boardBorder);
-        addMouseListener(this);
+//        addMouseListener(this);
 
         //Alternate primary/secondary colors to paint the tiles/checkerboard
         Color paint;
@@ -90,7 +81,7 @@ public class GameBoard extends JFrame implements MouseListener{
     /**
      * Simply cycles through tiles, checking boardMatrix Tile handles, and highlights a border, then removes them.
      */
-    public void tileTrial()   {
+    void tileTrial()   {
         Border tileBorder = BorderFactory.createLineBorder(Color.CYAN, 1);
         for (int i = 0; i < numRows; ++i) {
             for (int j = 0; j < numColumns; ++j) {
@@ -166,7 +157,7 @@ public class GameBoard extends JFrame implements MouseListener{
 
 
 
-    public void addTicTacToeBorders()   {
+    void addTicTacToeBorders()   {
         Border leftRight, topBottom, all;
         leftRight = BorderFactory.createMatteBorder(0,3,0,3,Color.BLACK);
         topBottom = BorderFactory.createMatteBorder(3,0,3,0,Color.BLACK);

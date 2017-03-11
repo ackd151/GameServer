@@ -2,7 +2,8 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 /**
- * Created by ACKD151 on 3/10/2017.
+ * @author Daniel Ackerman 23104834
+ * @version 0.1.0, 3/10/2017
  */
 public interface AbstractGameFactory {
     GameBoard createGameBoard();

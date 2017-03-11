@@ -1,5 +1,6 @@
 /**
- * Created by ACKD151 on 3/9/2017.
+ * @author Daniel Ackerman 23104834
+ * @version 0.1.0, 3/9/2017
  */
-public class Player {
+class Player {
 }

@@ -3,15 +3,15 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Created by ACKD151 on 3/10/2017.
+ * @author Daniel Ackerman 23104834
+ * @version 0.1.0, 3/10/2017
  */
 public class CheckersFactory implements AbstractGameFactory{
 
     @Override
     public GameBoard createGameBoard() {
-        GameBoard checkersBoard = new GameBoard(600, 600, 8, 8,
+        return new GameBoard(600, 600, 8, 8,
                 new Color(240,220,130), new Color(76,105,67), "Checkers");
-        return checkersBoard;
     }
 
     @Override

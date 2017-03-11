@@ -2,22 +2,22 @@ import java.awt.event.MouseEvent;
 
 /**
  * @author Daniel Ackerman 23104834
- * @version 0.1.0, 3/10/2017
+ * @version 0.1.0, 3/11/2017
  */
-public class CheckersGame extends Game  {
+public class ChessGame extends Game {
 
-    CheckersGame()   {
-        super(new CheckersFactory());
+    public ChessGame()   {
+        super(new ChessFactory());
     }
 
     @Override
     protected void run() {
+
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Tile clicked = (Tile)e.getComponent();
-        clicked.addPiece(pieces.get(1));
+
     }
 
     @Override
