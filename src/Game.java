@@ -7,8 +7,8 @@ import java.util.ArrayList;
  * @version 0.1.0, 3/10/2017
  */
 public abstract class Game extends JFrame implements MouseListener  {
-    private AbstractGameFactory agf;
-    private GameBoard board;
+    AbstractGameFactory agf;
+    GameBoard board;
     ArrayList<ImageIcon> pieces;
     Player isTurn;
     ArrayList<Player> players;

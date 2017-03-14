@@ -1,15 +1,51 @@
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+
 /**
- * @author Daniel Ackerman 23104834
- * @version 0.1.0, 3/10/2017
+ * Created by ACKD151 on 3/10/2017.
  */
 public class TicTacToeGame extends Game {
+    Player currentPlayer;
 
     TicTacToeGame() {
         super(new TicTacToeFactory());
     }
 
+
+    public boolean checkWinner(){
+        return   ((board.boardMatrix[0][0].owned!=null && board.boardMatrix[0][0].owned==board.boardMatrix[0][1].owned && board.boardMatrix[0][0].owned==board.boardMatrix[0][2].owned)
+                ||(board.boardMatrix[1][0].owned!=null && board.boardMatrix[1][0].owned==board.boardMatrix[1][1].owned && board.boardMatrix[1][0].owned==board.boardMatrix[1][2].owned)
+                ||(board.boardMatrix[2][0].owned!=null && board.boardMatrix[2][0].owned==board.boardMatrix[2][1].owned && board.boardMatrix[2][0].owned==board.boardMatrix[2][2].owned)
+                ||(board.boardMatrix[0][0].owned!=null && board.boardMatrix[0][0].owned==board.boardMatrix[1][0].owned && board.boardMatrix[0][0].owned==board.boardMatrix[2][0].owned)
+                ||(board.boardMatrix[0][1].owned!=null && board.boardMatrix[0][1].owned==board.boardMatrix[1][1].owned && board.boardMatrix[0][1].owned==board.boardMatrix[2][1].owned)
+                ||(board.boardMatrix[0][2].owned!=null && board.boardMatrix[0][2].owned==board.boardMatrix[1][2].owned && board.boardMatrix[0][2].owned==board.boardMatrix[2][2].owned)
+                ||(board.boardMatrix[0][0].owned!=null && board.boardMatrix[0][0].owned==board.boardMatrix[1][1].owned && board.boardMatrix[0][0].owned==board.boardMatrix[2][2].owned)
+                ||(board.boardMatrix[0][2].owned!=null && board.boardMatrix[0][2].owned==board.boardMatrix[1][1].owned && board.boardMatrix[0][2].owned==board.boardMatrix[2][0].owned)
+        );
+    }
+
+    public boolean boardFilled(){
+        for (Tile[] tt : board.boardMatrix) {
+            for (Tile t : tt)   {
+                if (t.owned==null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean canMakeMove(int row, int column, Player player){
+        if (player==currentPlayer && board.boardMatrix[row][column].owned==null ){
+            board.boardMatrix[row][column].owned=currentPlayer;
+            //currentPlayer=currentPlayer.opponent;
+            return true;
+        }
+        return false;
+    }
 
     @Override
     protected void run() {
@@ -19,9 +55,12 @@ public class TicTacToeGame extends Game {
     @Override
     public void mouseClicked(MouseEvent e) {
         Tile clicked = (Tile)e.getComponent();
-        clicked.addPiece(pieces.get(0));
-        System.out.println("Selected row: " + clicked.getRow() + ", column: " + clicked.getColumn() + ".");
+        if (canMakeMove(clicked.getRow(),clicked.getColumn(), currentPlayer)){
+            clicked.addPiece(pieces.get(0));
+            System.out.println("Selected row: " + clicked.getRow() + ", column: " + clicked.getColumn() + ".");
+        }
     }
+
 
     @Override
     public void mousePressed(MouseEvent e) {
