@@ -1,4 +1,8 @@
+import javax.swing.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * @author Daniel Ackerman 23104834
@@ -8,10 +12,6 @@ public class CheckersGame extends Game  {
 
     CheckersGame()   {
         super(new CheckersFactory());
-    }
-
-    @Override
-    protected void run() {
     }
 
     @Override
@@ -38,5 +38,22 @@ public class CheckersGame extends Game  {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    protected ArrayList<Tile> availableMoves(Player isUp) {
+        return null;
+    }
+
+    @Override
+    protected GameState runGame(GameState state) {
+        while (!state.gameOver)  {
+            //reset borders
+            for (Tile[] tt : board.boardMatrix)    {
+                for (Tile t : tt)   {
+                    t.setBorder(BorderFactory.createEmptyBorder());
+                }
+            }
+        }
     }
 }
