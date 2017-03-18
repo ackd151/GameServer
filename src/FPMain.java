@@ -10,7 +10,7 @@ public class FPMain {
     public static void main(String[] args)  {
 
         Game checkersGame = new CheckersGame();
-        checkersGame.run();
+        checkersGame.runGame();
 //        Game tictactoe = new TicTacToeGame();
 //        Game chess = new ChessGame();
     }

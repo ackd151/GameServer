@@ -114,7 +114,7 @@ public class TicTacToeGame extends Game {
     }
 
     @Override
-    protected void run() {
+    protected void runGame() {
 
     }
 }

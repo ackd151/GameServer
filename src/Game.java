@@ -2,6 +2,7 @@ import com.sun.jmx.remote.internal.ArrayQueue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.*;
 
@@ -51,7 +52,7 @@ public abstract class Game extends JFrame implements MouseListener  {
 
     protected abstract ArrayList<Tile> availableMoves(Player isUp);
 
-    protected final GameState runGame(GameState gameState)    {
+    protected void runGame()    {
         Player isUp;
         while (!state.gameOver) {
             isUp = playerQueue.remove();
@@ -59,8 +60,31 @@ public abstract class Game extends JFrame implements MouseListener  {
             isUp.makeLegalMove();
             playerQueue.add(isUp);
             //gameState.update();
-
-            return gameState;
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

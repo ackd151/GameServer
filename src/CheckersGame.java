@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+
 
 /**
  * @author Daniel Ackerman 23104834
@@ -46,7 +45,7 @@ public class CheckersGame extends Game  {
     }
 
     @Override
-    protected GameState runGame(GameState state) {
+    protected void runGame() {
         while (!state.gameOver)  {
             //reset borders
             for (Tile[] tt : board.boardMatrix)    {
