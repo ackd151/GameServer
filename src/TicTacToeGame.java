@@ -1,24 +1,26 @@
-import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.BorderFactory;
+import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
-import javax.swing.border.Border;
 
 /**
- * Created by ACKD151 on 3/10/2017.
+ * @author Daniel Ackerman 23104834
+ * @version 0.1.0, 3/5/17
  */
-public class TicTacToeGame extends Game {
+public class TicTacToeGame extends Game implements MouseListener{
+
     String currentPlayer="Player2";
     String Player1="Player1";
     String Player2="Player2";
     Boolean redoMove=false;
 
-    TicTacToeGame() {
-        super(new TicTacToeFactory());
+    TicTacToeGame(AbstractGameFactory tttgf)   {
+        super("TicTacToe", tttgf);
+        for (Tile[] tt : board.boardMatrix) {
+            for(Tile t : tt)    {
+                t.addMouseListener(this);
+            }
+        }
     }
-
 
     public boolean checkWinner(){
         return   ((board.boardMatrix[0][0].getOwned()!=null && board.boardMatrix[0][0].getOwned()==board.boardMatrix[0][1].getOwned() && board.boardMatrix[0][0].getOwned()==board.boardMatrix[0][2].getOwned())
@@ -60,8 +62,8 @@ public class TicTacToeGame extends Game {
     protected void run(Tile clicked) {
         ImageIcon piece;
         currentPlayer=flipTurn(currentPlayer);
-        if (currentPlayer==Player1){piece=pieces.get(0);}
-        else{piece=pieces.get(1);}
+        if (currentPlayer==Player1){piece=client.playerPieces.get(0);}
+        else{piece=opponent.playerPieces.get(1);}
         if (canMakeMove(clicked.getRow(),clicked.getColumn(), currentPlayer)){
             board.boardMatrix[clicked.getRow()][clicked.getColumn()].setOwned(currentPlayer);
             clicked.addPiece(piece);
@@ -108,13 +110,9 @@ public class TicTacToeGame extends Game {
 
     }
 
-    @Override
-    protected ArrayList<Tile> availableMoves(Player isUp) {
-        return null;
-    }
 
     @Override
-    protected void runGame() {
+    public void runGame() {
 
     }
 }

@@ -5,7 +5,7 @@ import java.awt.*;
  * @version 0.1.0, 3/10/2017
  */
 public interface AbstractGameFactory {
-    String getGameTitle();
+    Game createGame(AbstractGameFactory abf);
     Dimension getDimension();
     GameBoard createGameBoard();
     void loadImages(Player goesFirst, Player two);

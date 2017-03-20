@@ -1,16 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 /**
  * @author Daniel Ackerman 23104834
  * @version 0.1.0, 3/9/2017
  */
-class Tile extends JPanel implements MouseListener {
+class Tile extends JPanel {
     private Player owner;
-    private String owned; // ??? Need to maintain Tile ownership; PlayerX or null...
+    private String owned;
     private int row, column;
+    boolean free = true;
 
     Tile(int row, int column)   {
         super(new GridLayout(1,1));
@@ -18,7 +17,6 @@ class Tile extends JPanel implements MouseListener {
         this.column = column;
         setMinimumSize(new Dimension(75,75));
         setMaximumSize(new Dimension(75,75));
-        addMouseListener(this);
         setVisible(true);
     }
 
@@ -30,11 +28,14 @@ class Tile extends JPanel implements MouseListener {
         this.owned = owned;
     }
 
-    void addPiece(ImageIcon gamePiece)   {
+    void addPiece(ImageIcon gamePiece)  {
         JLabel imageHolder = new JLabel(gamePiece);
         add(imageHolder);
-//        imageHolder.setVisible(true);
-//        imageHolder.repaint();
+    }
+
+    void addPiece(ImageIcon gamePiece, boolean isKing, boolean starts)   {
+        BoardPiece checker = new BoardPiece(gamePiece, isKing, starts);
+        add(checker);
     }
 
     int getRow() {
@@ -53,31 +54,4 @@ class Tile extends JPanel implements MouseListener {
         return owner;
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        Tile selected = (Tile)e.getComponent();
-        if (selected.owner != null) {
-            System.out.println("owner: " + getOwner().getName() + ". Row: " + getRow() + ". Col: " + getColumn() + ".\n");
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }

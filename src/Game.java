@@ -1,90 +1,56 @@
-import com.sun.jmx.remote.internal.ArrayQueue;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.*;
 
 /**
  * @author Daniel Ackerman 23104834
  * @version 0.1.0, 3/10/2017
  */
-public abstract class Game extends JFrame implements MouseListener  {
+public abstract class Game extends JFrame {
     AbstractGameFactory agf;
     GameBoard board;
     ArrayList<ImageIcon> pieces;
-    Player isTurn;                  //likely turn into Client when incorporating C/S model
+    Player isTurn;
     Player client;
     Player opponent;
-    Queue<Player> playerQueue;
+    Queue<Player> playerQueue;  //only used locally
     GameState state;
 
-    Game(AbstractGameFactory factory) {
-        super(factory.getGameTitle());    //super is JFrame
+    Game(String gameTitle, AbstractGameFactory factory) {
+        super(gameTitle);    //super is JFrame / for now
         agf = factory;
-        createPlayers();    //creates a client and a component
+        board = agf.createGameBoard();
+        createPlayers();    //creates a client and a opponent
         isTurn = client;
         agf.loadImages(client, opponent);
-        board = agf.createGameBoard();
         agf.setInitOwnership(board, client, opponent);
 
         playerQueue = new LinkedList<>();
-        playerQueue.add(isTurn);
         playerQueue.add(opponent);
 
-        setSize(agf.getDimension());
+        Dimension desiredFrameSize = agf.getDimension();
+        setMinimumSize(desiredFrameSize);
+        setMaximumSize(desiredFrameSize);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         initializeGameState();
         add(board);
-        pack();
         setVisible(true);
     }
 
     void createPlayers()   {
-        client      = new Player("Self", board);
-        opponent    = new Player("Enemy", board);
+        client      = new Player("Self");
+        client.starts = true;
+        opponent    = new Player("Enemy");
+    }
+
+    void switchTurn()   {
+        playerQueue.add(isTurn);
+        isTurn = playerQueue.remove();
     }
 
     void initializeGameState()  {
         state = new GameState(board.boardMatrix, isTurn);
     }
 
-    protected abstract ArrayList<Tile> availableMoves(Player isUp);
-
-    protected void runGame()    {
-        Player isUp;
-        while (!state.gameOver) {
-            isUp = playerQueue.remove();
-            isUp.getAvailableMoves();
-            isUp.makeLegalMove();
-            playerQueue.add(isUp);
-            //gameState.update();
-        }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public abstract void runGame();
 }
